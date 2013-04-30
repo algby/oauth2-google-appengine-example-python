@@ -6,19 +6,40 @@
     	<link rel="stylesheet" href="/stylesheets/clean.css">
     </head>
 	<body>
-	 	<div class="login-banner" align="right" id="loginPanelContainer"><table cellspacing="0" cellpadding="0"><tbody><tr><td align="left" style="vertical-align: top;"><a class="login-area" href="https://www.google.com/accounts/ServiceLogin?service=ah&amp;passive=true&amp;continue=https://appengine.google.com/_ah/conflogin%3Fcontinue%3Dhttp://5.oaae-sample.appspot.com/&amp;ltmpl=gm&amp;shdf=CiQLEgZhaG5hbWUaGE9BdXRoIDIuMCBBcHBFbmdpbmUgSmF2YQwSAmFoIhT99QpCoxUUZpNF6BDo9FvCmNppJigBMhR1fNUer_s7mxVd6flZcxDh8kG-4w" title="Sign in">Please, sign in with your Google Account</a></td></tr></tbody></table></div> 
+	
+	 	<div class="login-banner" align="right" id="loginPanelContainer">
+		 	<table cellspacing="0" cellpadding="0">
+			 	<tbody>
+			 		<tr>
+			 			<td align="left" style="vertical-align: top;">
+			 		 	{% if has_credentials %}
+				    		<a  class="login-area" href="/">logout</a>
+				 	 	{% else %}
+				    		<a class="login-area"href="{{ url }}">Please, sign in with your Google Account</a> 
+				    	{% endif %}
+			 			</td>
+			 		</tr>
+			 	</tbody>
+		 	</table>
+	 	</div> 
 		<br>
+	
 	   	<table align="center">
-	      <tbody><tr>
-	        <td>
-	        	<h2 align="center">OAuth2 Google AppEngine Example from Software Engineering Candies</h2>
-	        	<h2 align="center">
-	        	<a href="http://www.sw-engineering-candies.com">
-	        	How to get User Information with OAuth2 in a Google AppEngine Python Application?
-	        	</a></h2>
-	        </td>        
-	      </tr>
-	    </tbody>
+	      <tbody>
+		      <tr>
+		        <td>
+		        	<h2 align="center">OAuth2 Google AppEngine Example from Software Engineering Candies</h2>
+		        	<h2 align="center">
+		        	<a href="http://www.sw-engineering-candies.com">
+		        	How to get User Information with OAuth2 in a Google AppEngine Python Application?
+		        	</a></h2>
+		        </td>        
+		      </tr>
+	   		</tbody>
 	    </table>
+    
+	    <p>You can always <a href="https://www.google.com/accounts/b/0/IssuedAuthSubTokens">revoke</a>
+	    permission at any time.</p>
+	
 	</body>
 </html>

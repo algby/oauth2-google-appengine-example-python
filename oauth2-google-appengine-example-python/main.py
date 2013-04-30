@@ -39,7 +39,7 @@ class MainHandler(webapp2.RequestHandler):
 
     @decorator.oauth_aware
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'grant.html')
+        path = os.path.join(os.path.dirname(__file__), 'main.html')
         variables = {
                      'url': decorator.authorize_url(),
                      'has_credentials': decorator.has_credentials()
