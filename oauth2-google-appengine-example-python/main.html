@@ -11,13 +11,14 @@
 		 	<table cellspacing="0" cellpadding="0">
 			 	<tbody>
 			 		<tr>
-			 			<td align="left" style="vertical-align: top;">
+			 			
 			 		 	{% if has_credentials %}
-				    		<a  class="login-area" href="/">logout</a>
+				    		<td align="left" style="vertical-align: top;"><a  class="login-area" href="/">{{ user_name }}</a></td>
+				    		<td align="left" style="vertical-align: top;"><img class="login-area" src="{{ image_url }}" style="width: 24px;" aria-hidden="false" /></td>
 				 	 	{% else %}
-				    		<a class="login-area"href="{{ url }}">Please, sign in with your Google Account</a> 
+				    		<td align="left" style="vertical-align: top;"><a class="login-area" href="{{ url }}">Please, sign in with your Google Account</a> </td>
 				    	{% endif %}
-			 			</td>
+			 			
 			 		</tr>
 			 	</tbody>
 		 	</table>

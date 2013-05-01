@@ -54,10 +54,16 @@ class AboutHandler(webapp2.RequestHandler):
         try:
             http = decorator.http()
             user = service.people().get(userId='me').execute(http=http)
-            text = '%s' % user['displayName']
+            user_name = '%s' % user['displayName']
+            image_url = 'https://lh5.googleusercontent.com/-HmfAHy7_IAs/AAAAAAAAAAI/AAAAAAAAAnc/da5MUQMGjYo/photo.jpg';
 
             path = os.path.join(os.path.dirname(__file__), 'main.html')
-            self.response.out.write(template.render(path, {'text': text }))
+            self.response.out.write(template.render(path, {
+                                                           'user_name': user_name , 
+                                                           'image_url' : image_url,   
+                                                           'url': decorator.authorize_url(),
+                                                           'has_credentials': decorator.has_credentials()
+                                                           }))
         except AccessTokenRefreshError:
             self.redirect('/')
 
