@@ -7,6 +7,7 @@ from oauth2client.appengine import oauth2decorator_from_clientsecrets
 from oauth2client.client import AccessTokenRefreshError
 from google.appengine.api import memcache
 from google.appengine.ext.webapp import template
+from google.appengine.api import users
 
 
 # CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
@@ -39,38 +40,29 @@ class MainHandler(webapp2.RequestHandler):
 
     @decorator.oauth_aware
     def get(self):
+        
         path = os.path.join(os.path.dirname(__file__), 'main.html')
-        variables = {
-                     'url': decorator.authorize_url(),
-                     'has_credentials': decorator.has_credentials()
-                     }
-        self.response.out.write(template.render(path, variables))
-
-
-class AboutHandler(webapp2.RequestHandler):
-
-    @decorator.oauth_required
-    def get(self):
+  
         try:
             http = decorator.http()
-            user = service.people().get(userId='me').execute(http=http)
-            user_name = '%s' % user['displayName']
-            image_url = 'https://lh5.googleusercontent.com/-HmfAHy7_IAs/AAAAAAAAAAI/AAAAAAAAAnc/da5MUQMGjYo/photo.jpg';
-
-            path = os.path.join(os.path.dirname(__file__), 'main.html')
-            self.response.out.write(template.render(path, {
-                                                           'user_name': user_name , 
-                                                           'image_url' : image_url,   
-                                                           'url': decorator.authorize_url(),
-                                                           'has_credentials': decorator.has_credentials()
-                                                           }))
+            mePerson = service.people().get(userId='me').execute(http=http)
+            user_name = '%s' % mePerson['displayName']
+            user_image_url = '%s' % mePerson['image']['url'];
+            variables = {
+               'user_name': user_name , 
+               'user_image_url' : user_image_url,   
+               'url': users.create_logout_url('/', '/'),
+               'has_credentials': decorator.has_credentials()
+            }
+            self.response.out.write(template.render(path, variables))
         except AccessTokenRefreshError:
-            self.redirect('/')
-
-
+            variables = {
+                'url': decorator.authorize_url(),
+                'has_credentials': decorator.has_credentials()
+            }
+            self.response.out.write(template.render(path, variables))
 
 app = webapp2.WSGIApplication([
                                ('/', MainHandler),
-                               ('/about', AboutHandler),
                                (decorator.callback_path, decorator.callback_handler()),
                                ], debug=True)

@@ -13,8 +13,8 @@
 			 		<tr>
 			 			
 			 		 	{% if has_credentials %}
-				    		<td align="left" style="vertical-align: top;"><a  class="login-area" href="/">{{ user_name }}</a></td>
-				    		<td align="left" style="vertical-align: top;"><img class="login-area" src="{{ image_url }}" style="width: 24px;" aria-hidden="false" /></td>
+				    		<td align="left" style="vertical-align: top;"><a  class="login-area" href="{{ url }}">{{ user_name }}</a></td>
+				    		<td align="left" style="vertical-align: top;"><img class="login-area" src="{{ user_image_url }}" style="width: 24px;" aria-hidden="false" /></td>
 				 	 	{% else %}
 				    		<td align="left" style="vertical-align: top;"><a class="login-area" href="{{ url }}">Please, sign in with your Google Account</a> </td>
 				    	{% endif %}
@@ -39,7 +39,7 @@
 	   		</tbody>
 	    </table>
     
-	    <p>You can always <a href="https://www.google.com/accounts/b/0/IssuedAuthSubTokens">revoke</a>
+	    <p>You can <a href="https://www.google.com/accounts/b/0/IssuedAuthSubTokens">revoke</a>
 	    permission at any time.</p>
 	
 	</body>
