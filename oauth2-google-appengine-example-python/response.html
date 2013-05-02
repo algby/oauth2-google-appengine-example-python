@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link type="text/css" rel="stylesheet"
+	href="/stylesheets/OAuthAppEngineSample.css">
+<title>OAuth2 Python</title>
+<link rel="stylesheet" href="/stylesheets/clean.css">
+</head>
+<body>
+
+	<div class="login-banner" align="right">
+		<table cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+
+					{% if has_credentials %}
+					<td align="left" style="vertical-align: top;"><a
+						class="login-area" href="{{ url }}" title="Sign out">{{ user_name }}</a></td>
+					<td align="left" style="vertical-align: top;"><img
+						class="login-area" src="{{ user_image_url }}" style="width: 24px;"
+						aria-hidden="false" /></td> {% else %}
+					<td align="left" style="vertical-align: top;"><a
+						class="login-area" href="{{ url }}" title="Sign in">Please, sign in with your
+							Google Account</a></td> {% endif %}
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<br></br>
+	<table align="center">
+		<tbody>
+			<tr>
+				<td align="left" style="vertical-align: top;">
+					<div class="gwt-HTML">
+						<b>Sending name to the server:</b>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="left" style="vertical-align: top;">
+					<div class="gwt-Label">{{ message }}</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="left" style="vertical-align: top;"><div
+						class="gwt-HTML">
+						<br> <b>Server replies:</b>
+					</div></td>
+			</tr>
+			<tr>
+				<td align="left" style="vertical-align: top;"><div
+						class="gwt-HTML">
+						Hello, {{ message }} ! <br> <br>I am running {{ version }}.<br> <br>It looks
+						like you are using:<br>{{ user_agent }}
+					</div></td>
+			</tr>
+			<tr>
+				<form action="/home" method="post">
+				<td align="right" style="vertical-align: top;"><button
+						type="submit" class="gwt-Button" id="closeButton">Back</button></td>
+				</form>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>

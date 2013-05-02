@@ -1,5 +1,6 @@
 import webapp2
 import httplib2
+import cgi
 import os
 
 from apiclient.discovery import build
@@ -49,8 +50,8 @@ class MainHandler(webapp2.RequestHandler):
             user_name = '%s' % mePerson['displayName']
             user_image_url = '%s' % mePerson['image']['url'];
             variables = {
-               'user_name': user_name , 
-               'user_image_url' : user_image_url,   
+               'user_name': user_name ,
+               'user_image_url' : user_image_url,
                'url': users.create_logout_url('/', '/'),
                'has_credentials': decorator.has_credentials()
             }
@@ -61,8 +62,39 @@ class MainHandler(webapp2.RequestHandler):
                 'has_credentials': decorator.has_credentials()
             }
             self.response.out.write(template.render(path, variables))
+            
+            
+class RedirectHomeHandler(webapp2.RequestHandler):
+    def post(self):
+        self.redirect("/")            
+            
+            
+class ServiceHandler(webapp2.RequestHandler):
+
+    @decorator.oauth_aware
+    def post(self):
+        path = os.path.join(os.path.dirname(__file__), 'response.html')
+  
+        http = decorator.http()
+        mePerson = service.people().get(userId='me').execute(http=http)
+        user_name = '%s' % mePerson['displayName']
+        user_image_url = '%s' % mePerson['image']['url'];
+        variables = {
+               'user_name': user_name ,
+               'user_image_url' : user_image_url,
+               'url': users.create_logout_url('/', '/'),
+               'has_credentials': decorator.has_credentials(),
+               'message' : cgi.escape(self.request.get('content')),
+               'user_agent' : self.request.headers['User-Agent'],
+               'version' : os.environ['SERVER_SOFTWARE']
+        }
+        self.response.out.write(template.render(path, variables))
+             
 
 app = webapp2.WSGIApplication([
                                ('/', MainHandler),
+                               ('/response', ServiceHandler),
+                               ('/main', MainHandler),
+                               ('/home', RedirectHomeHandler),
                                (decorator.callback_path, decorator.callback_handler()),
                                ], debug=True)
