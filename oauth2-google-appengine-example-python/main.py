@@ -68,9 +68,9 @@ decorator = oauth2decorator_from_clientsecrets(
 
 class MainHandler(webapp2.RequestHandler):
 
-    @decorator.oauth_aware
-    def get(self):        
-        path = os.path.join(os.path.dirname(__file__), 'main.html')  
+   @decorator.oauth_aware
+   def get(self):        
+        path = os.path.join(os.path.dirname(__file__), 'templates/main.html')  
         try:
             http = decorator.http()
             mePerson = service.people().get(userId='me').execute(http=http)
@@ -95,7 +95,7 @@ class ServiceHandler(webapp2.RequestHandler):
 
     @decorator.oauth_aware
     def post(self):
-        path = os.path.join(os.path.dirname(__file__), 'response.html')
+        path = os.path.join(os.path.dirname(__file__), 'templates/response.html')
   
         http = decorator.http()
         mePerson = service.people().get(userId='me').execute(http=http)
@@ -114,6 +114,7 @@ class ServiceHandler(webapp2.RequestHandler):
         
                     
 class RedirectHomeHandler(webapp2.RequestHandler):
+   
     def post(self):
         self.redirect("/")      
              
