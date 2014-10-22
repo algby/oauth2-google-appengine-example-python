@@ -18,9 +18,6 @@ The full code and used libraries are stored on GitHub (see link below).
 
 // File #01: main.py
 
-'''
-
-
 
 import os
 import cgi
@@ -116,11 +113,8 @@ app = webapp2.WSGIApplication([('/', MainHandler),
 
 
 
-'''
-
 // File #02: app.yaml
 
-'''
 application: oaae-sample-python
 version: 5
 runtime: python27
@@ -135,13 +129,11 @@ handlers:
 - url: /.*
   script: main.app  
 
-'''
+
 
 
 
 // File #03: main.html
-
-'''
 
 
 
@@ -226,13 +218,11 @@ class="gwt-Label"></div></td>
 </html>
 
 
-'''
 
 
 // File #04: response.html
 
 
-'''
 
 
 
@@ -306,7 +296,8 @@ type="submit" class="gwt-Button" id="closeButton">Back</button></td>
 </body>
 </html>
 
-'''
+
+
 
 
 Test Expected Result
